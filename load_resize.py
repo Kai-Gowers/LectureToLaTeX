@@ -24,22 +24,21 @@ print("Saved:")
 print("pre_out/00_original.jpg")
 print("pre_out/01_resized.jpg")
 
-
-
 import numpy as np
 
 def enhance_chalkboard(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8)).apply(gray)
-    den = cv2.bilateralFilter(clahe, 7, 50, 50)
-    bw = cv2.adaptiveThreshold(den, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                               cv2.THRESH_BINARY, 35, 10)
-    if np.mean(bw) < 127:
-        bw = cv2.bitwise_not(bw)
-    edges = cv2.Canny(den, 50, 150)
-    return bw, edges
+    blur = cv2.medianBlur(gray, 3)
+    _, th = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    if np.mean(th) < 127:
+        th = cv2.bitwise_not(th)
+    kernel = np.ones((2,2), np.uint8)
+    opened = cv2.morphologyEx(th, cv2.MORPH_OPEN, kernel)
+    closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel)
+    edges = cv2.Canny(blur, 50, 150)
+    return closed, edges
 
-IN_ZIP = "/Users/alexandra/Downloads/SampleNotesAS.zip" 
+IN_ZIP = "/Users/alexandra/Downloads/SampleNotesAS.zip"
 OUT_DIR = "pre_out"
 MAX_SIDE = 2000
 
@@ -55,17 +54,22 @@ for filename in os.listdir(extract_dir):
         img = cv2.imread(in_path, cv2.IMREAD_COLOR)
         if img is None:
             continue
+
         cv2.imwrite(os.path.join(OUT_DIR, f"00_original_{filename}"), img)
+
         h, w = img.shape[:2]
         long_side = max(h, w)
         if long_side > MAX_SIDE:
             scale = MAX_SIDE / long_side
             new_w, new_h = int(w * scale), int(h * scale)
             img = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
+
         cv2.imwrite(os.path.join(OUT_DIR, f"01_resized_{filename}"), img)
+
         enh, edges = enhance_chalkboard(img)
         cv2.imwrite(os.path.join(OUT_DIR, f"02_enhanced_{filename}"), enh)
         cv2.imwrite(os.path.join(OUT_DIR, f"03_edges_{filename}"), edges)
+
         print(f"Processed {filename}")
 
 print("All images processed and saved in:", OUT_DIR)
