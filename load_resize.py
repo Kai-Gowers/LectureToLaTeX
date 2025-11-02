@@ -25,7 +25,7 @@ print("pre_out/00_original.jpg")
 print("pre_out/01_resized.jpg")
 
 IN_DIR = "pre_out"
-OUT_DIR = "pre_out" #I feel like we need to add another directory with the rescaled images and then have a separate one for the denoised ones
+OUT_DIR = "out_scaled" #I feel like we need to add another directory with the rescaled images and then have a separate one for the denoised ones
 MAX_SIDE = 2000
 
 os.makedirs(OUT_DIR, exist_ok=True)
