@@ -33,7 +33,7 @@ def enhance_chalkboard(img):
     return closed, edges
 
 IN_DIR = "pre_out"
-OUT_DIR = "pre_out_edges"
+OUT_DIR = "out_denoise"
 
 os.makedirs(OUT_DIR, exist_ok=True)
 for root, _, files in os.walk(IN_DIR):
