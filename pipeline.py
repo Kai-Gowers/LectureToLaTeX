@@ -15,7 +15,7 @@ BASE_URL = "https://api.deepseek.com"
 os.makedirs(DOCS_DIR, exist_ok=True)
 
 print("[INFO] Running denoise_contrast...")
-paths = run_denoise()  
+paths = run_denoise()  # CHANGE PARAMETERS FOR IMAGE OF YOUR CHOICE
 enh_path = paths["enhanced"]
 image_base = os.path.splitext(os.path.basename(enh_path))[0]  # -> 'enhanced_01_resized'
 note_name = f"notes_{image_base}"

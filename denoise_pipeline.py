@@ -1,5 +1,3 @@
-# denoise_contrast.py
-
 import cv2
 import os
 import numpy as np
@@ -16,7 +14,7 @@ def enhance_chalkboard(img):
     edges = cv2.Canny(blur, 50, 150)
     return closed, edges
 
-def run_denoise(in_path="pre_out/01_resized.jpg", pre_out="pre_out", out_dir="out_denoise"):
+def run_denoise(in_path="raw/01_resized.jpg", pre_out="pre_out", out_dir="out_denoise"):
     os.makedirs(pre_out, exist_ok=True)
     os.makedirs(out_dir, exist_ok=True)
 

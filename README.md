@@ -9,5 +9,5 @@ How to run this on your machine:
 5. .tex and .pdf files of the corresponding LaTeX notes will be saved to notes_out folder
 
 The "old" folder consists of old files that are NOT currently in use.
-The "pre_out" folder consists of raw images, unprocessed.
+The "raw" folder consists of raw images, unprocessed.
 The "out_denoise" folder consists of the processed images.
