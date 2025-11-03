@@ -1,30 +1,35 @@
 import os
-import base64
 import subprocess
 from openai import OpenAI
-from denoise_pipeline import run_denoise  
+from denoise_pipeline import run_denoise
 import pytesseract
 from PIL import Image
 
-# ================= CONFIG =================
-DOCS_DIR = "notes_out"
+# =============== CONFIG ===============
+DOCS_DIR = "notes_out"           # where .tex and .pdf go
 MODEL_NAME = "deepseek-chat"
 API_KEY = os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
 BASE_URL = "https://api.deepseek.com"
+# ======================================
 
 os.makedirs(DOCS_DIR, exist_ok=True)
 
-print("[INFO] Running denoise_contrast...")
-paths = run_denoise()  # CHANGE PARAMETERS FOR IMAGE OF YOUR CHOICE
+print("[INFO] Running denoise pipeline on image from raw/ ...")
+# this will read raw/01_resized.jpg and write to processed/
+paths = run_denoise()   # you can pass in_path="raw/some_other.jpg" if you want
 enh_path = paths["enhanced"]
-image_base = os.path.splitext(os.path.basename(enh_path))[0]  # -> 'enhanced_01_resized'
+
+# use the processed image name to name the notes
+image_base = paths['base_name']
 note_name = f"notes_{image_base}"
 print(f"[INFO] Using enhanced image for OCR: {enh_path}")
 
+# ===== 1) OCR the processed image =====
 ocr_text = pytesseract.image_to_string(Image.open(enh_path))
+print(ocr_text)
 print("[INFO] OCR text extracted.")
 
-# ========== 2. CALL LLM WITH TEXT ONLY ==========
+# ===== 2) Call LLM with text only =====
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 system_prompt = (
@@ -55,6 +60,7 @@ response = client.chat.completions.create(
 latex_source = response.choices[0].message.content
 print("[INFO] LLM returned LaTeX.")
 
+# strip ``` if model wraps it
 if latex_source.strip().startswith("```"):
     latex_source = latex_source.strip().strip("`")
 
@@ -64,7 +70,7 @@ with open(tex_path, "w") as f:
 
 print(f"[INFO] Wrote LaTeX to {tex_path}")
 
-# ========== 3. COMPILE TO PDF ==========
+# ===== 3) Compile to PDF =====
 try:
     subprocess.run(
         ["latexmk", "-pdf", f"{note_name}.tex", f"-outdir={DOCS_DIR}"],

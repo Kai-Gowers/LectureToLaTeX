@@ -8,42 +8,50 @@ def enhance_chalkboard(img):
     _, th = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     if np.mean(th) < 127:
         th = cv2.bitwise_not(th)
-    kernel = np.ones((2,2), np.uint8)
+    kernel = np.ones((2, 2), np.uint8)
     opened = cv2.morphologyEx(th, cv2.MORPH_OPEN, kernel)
     closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel)
     edges = cv2.Canny(blur, 50, 150)
     return closed, edges
 
-def run_denoise(in_path="raw/01_resized.jpg", pre_out="pre_out", out_dir="out_denoise"):
-    os.makedirs(pre_out, exist_ok=True)
-    os.makedirs(out_dir, exist_ok=True)
 
+def run_denoise(
+    in_path="raw/TestImage2.jpeg",
+    processed_dir="processed"
+):
+    os.makedirs(processed_dir, exist_ok=True)
+
+    # ---- derive a clean name from the chosen image ----
+    base_name = os.path.splitext(os.path.basename(in_path))[0]  # e.g. 'TestImage2'
+
+    # ---- read the raw image ----
     img = cv2.imread(in_path, cv2.IMREAD_COLOR)
     if img is None:
-        raise FileNotFoundError(f"Couldn't read {in_path} - did you run Step 1?")
+        raise FileNotFoundError(f"Couldn't read {in_path} - did you put the image in raw/?")
 
-    # Denoise
+    # ---- denoise ----
     denoise_strength = 10
     img_dn = cv2.fastNlMeansDenoisingColored(img, None, denoise_strength, denoise_strength, 7, 21)
-    denoised_path = os.path.join(pre_out, "02_denoise.jpg")
+    denoised_path = os.path.join(processed_dir, f"{base_name}_denoised.jpg")
     cv2.imwrite(denoised_path, img_dn)
-    print(f"Saved: {denoised_path} (gentle denoise)")
+    print(f"Saved denoised image → {denoised_path}")
 
-    # Enhance and detect edges
+    # ---- enhance + edges ----
     enh, edg = enhance_chalkboard(img_dn)
-    enh_path = os.path.join(out_dir, "enhanced_01_resized.jpg")
-    edg_path = os.path.join(out_dir, "edges_01_resized.jpg")
+    enh_path = os.path.join(processed_dir, f"{base_name}_enhanced.jpg")
+    edg_path = os.path.join(processed_dir, f"{base_name}_edges.jpg")
     cv2.imwrite(enh_path, enh)
     cv2.imwrite(edg_path, edg)
-    print(f"Processed image → {enh_path}")
+    print(f"Saved enhanced image → {enh_path}")
+    print(f"Saved edges image → {edg_path}")
 
-    # Return useful paths
+    # ---- return paths so pipeline.py can use the correct names ----
     return {
+        "base_name": base_name,
         "denoised": denoised_path,
         "enhanced": enh_path,
-        "edges": edg_path
+        "edges": edg_path,
     }
 
-# only auto-run if executed directly
 if __name__ == "__main__":
     run_denoise()
