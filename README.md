@@ -10,4 +10,4 @@ How to run this on your machine:
 
 The "old" folder consists of old files that are NOT currently in use.
 The "raw" folder consists of raw images, unprocessed.
-The "out_denoise" folder consists of the processed images.
+The "processed" folder consists of the processed images.
