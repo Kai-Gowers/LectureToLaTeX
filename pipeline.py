@@ -6,7 +6,7 @@ import pytesseract
 from PIL import Image
 
 # =============== CONFIG ===============
-DOCS_DIR = "notes_out"           # where .tex and .pdf go
+DOCS_DIR = "notes_out"       
 MODEL_NAME = "deepseek-chat"
 API_KEY = os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
 BASE_URL = "https://api.deepseek.com"
@@ -15,11 +15,9 @@ BASE_URL = "https://api.deepseek.com"
 os.makedirs(DOCS_DIR, exist_ok=True)
 
 print("[INFO] Running denoise pipeline on image from raw/ ...")
-# this will read raw/01_resized.jpg and write to processed/
-paths = run_denoise()   # you can pass in_path="raw/some_other.jpg" if you want
+paths = run_denoise()   # PASS IN IMAGE OF YOUR CHOICE AS PARAMETER in_path="raw/some_other.jpg" 
 enh_path = paths["enhanced"]
 
-# use the processed image name to name the notes
 image_base = paths['base_name']
 note_name = f"notes_{image_base}"
 print(f"[INFO] Using enhanced image for OCR: {enh_path}")
@@ -60,7 +58,6 @@ response = client.chat.completions.create(
 latex_source = response.choices[0].message.content
 print("[INFO] LLM returned LaTeX.")
 
-# strip ``` if model wraps it
 if latex_source.strip().startswith("```"):
     latex_source = latex_source.strip().strip("`")
 

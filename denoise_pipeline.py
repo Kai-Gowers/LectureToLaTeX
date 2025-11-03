@@ -20,9 +20,7 @@ def run_denoise(
     processed_dir="processed"
 ):
     os.makedirs(processed_dir, exist_ok=True)
-
-    # ---- derive a clean name from the chosen image ----
-    base_name = os.path.splitext(os.path.basename(in_path))[0]  # e.g. 'TestImage2'
+    base_name = os.path.splitext(os.path.basename(in_path))[0] 
 
     # ---- read the raw image ----
     img = cv2.imread(in_path, cv2.IMREAD_COLOR)
