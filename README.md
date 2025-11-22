@@ -41,7 +41,4 @@ The easiest way to use LectureToLaTeX is through the web interface:
 
 ## Old Files
 
-- **`raw/`** - Raw images, unprocessed
-- **`processed/`** - Processed images (temporary)
-- **`pipeline.py`** - Command-line pipeline script
 - **`old/`** - Old files that are NOT currently in use
