@@ -37,6 +37,7 @@ The easiest way to use LectureToLaTeX is through the web interface:
 - **`denoise_pipeline.py`** - Image denoising and enhancement functions
 - **`templates/index.html`** - Web app frontend
 - **`notes_out/`** - Generated LaTeX and PDF files
+- **`math_chatbot.py/`** - Chatbot
 
 ## Old Files
 
