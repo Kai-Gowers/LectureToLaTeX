@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Group Actions and Fixed Fields}
+
+Let us consider a Galois extension \( K/F \) with Galois group \( G = \operatorname{Gal}(K/F) \). In this section, we explore the correspondence between subgroups of \( G \) and intermediate fields of the extension \( K/F \).
+
+\subsection{The Fixed Field Correspondence}
+
+Given a subgroup \( H \leq G \), we define the fixed field of \( H \) as:
+\[
+K^H = \{ x \in K \mid \sigma(x) = x \text{ for all } \sigma \in H \}.
+\]
+This is indeed a subfield of \( K \) containing \( F \). Conversely, for an intermediate field \( F \subseteq L \subseteq K \), we define the Galois group of \( K \) over \( L \) as:
+\[
+\operatorname{Gal}(K/L) = \{ \sigma \in G \mid \sigma(x) = x \text{ for all } x \in L \}.
+\]
+This is a subgroup of \( G \).
+
+\subsection{Key Properties of the Correspondence}
+
+We now prove an important property relating these constructions.
+
+\begin{lemma}
+Let \( H \leq G \) and \( L = K^H \). Then \( \operatorname{Gal}(K/L) = H \).
+\end{lemma}
+
+\begin{proof}
+By definition, \( H \leq \operatorname{Gal}(K/L) \) since every element of \( H \) fixes \( L \). To show equality, suppose \( \sigma \in \operatorname{Gal}(K/L) \). Then \( \sigma \) fixes \( L \), but since \( L = K^H \), this means \( \sigma \in H \). Thus \( \operatorname{Gal}(K/L) \subseteq H \), and we conclude \( \operatorname{Gal}(K/L) = H \).
+\end{proof}
+
+\subsection{Action on Cosets and Intermediate Fields}
+
+Now consider an element \( a \in K \) and its orbit under the action of \( G \). Let \( H = \operatorname{Gal}(K/F(a)) \), the subgroup fixing \( F(a) \). Then the orbit of \( a \) under \( G \) is in bijection with the set of left cosets \( G/H \).
+
+For any \( \sigma \in G \), the element \( \sigma(a) \) is a conjugate of \( a \) over \( F \). The stabilizer of \( a \) in \( G \) is exactly \( H \), so the orbit-stabilizer theorem gives:
+\[
+|G \cdot a| = [G : H] = [F(a) : F],
+\]
+where the last equality follows from the Galois correspondence.
+
+\subsection{Normal Subgroups and Galois Subextensions}
+
+An important special case occurs when \( H \) is a normal subgroup of \( G \). In this case, the fixed field \( L = K^H \) is a Galois extension of \( F \), and we have:
+\[
+\operatorname{Gal}(L/F) \cong G/H.
+\]
+
+To see this, consider the restriction homomorphism:
+\[
+\varphi: G \to \operatorname{Gal}(L/F), \quad \sigma \mapsto \sigma|_L.
+\]
+The kernel of \( \varphi \) is exactly \( H = \operatorname{Gal}(K/L) \), since these are the automorphisms that act trivially on \( L \). By the first isomorphism theorem, we obtain:
+\[
+\operatorname{Gal}(L/F) \cong G/H.
+\]
+
+\subsection{Application to the Current Context}
+
+In our specific situation, we have \( K/F \) Galois with group \( G \), and we consider an intermediate field \( L \) with \( H = \operatorname{Gal}(K/L) \). The key observation is that for any \( \sigma \in G \), the conjugate field \( \sigma(L) \) corresponds to the conjugate subgroup \( \sigma H \sigma^{-1} \).
+
+In particular, \( L/F \) is Galois if and only if \( H \) is normal in \( G \), in which case:
+\[
+\operatorname{Gal}(L/F) \cong G/H.
+\]
+
+This completes our discussion of the fundamental Galois correspondence between subgroups and intermediate fields.
+
+\end{document}

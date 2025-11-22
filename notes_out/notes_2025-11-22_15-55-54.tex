@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\title{Group Theory: Normal Subgroups and Quotient Groups}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+
+In this note, we explore fundamental concepts in group theory, particularly focusing on normal subgroups and quotient groups. The key idea is to understand when a subgroup \( K \) of a group \( G \) is normal, denoted \( K \triangleleft G \), and how this relates to the structure of the quotient group \( G/K \).
+
+\section{Preliminaries}
+
+Let \( G \) be a group and \( K \) a subgroup of \( G \). Recall that \( K \) is normal in \( G \) if and only if for every \( g \in G \) and \( k \in K \), we have \( gkg^{-1} \in K \). Equivalently, \( K \) is normal if \( gK = Kg \) for all \( g \in G \), meaning every left coset is also a right coset.
+
+\section{Characterization of Normal Subgroups}
+
+\begin{theorem}
+Let \( G \) be a group and \( K \leq G \). Then the following are equivalent:
+\begin{enumerate}
+\item \( K \triangleleft G \)
+\item For all \( a \in G \), \( aKa^{-1} \subseteq K \)
+\item For all \( a \in G \), \( aKa^{-1} = K \)
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We will prove the equivalence of these statements.
+
+First, assume \( K \triangleleft G \). Then for any \( a \in G \) and \( k \in K \), we have \( aka^{-1} \in K \) by definition of normality. This shows \( aKa^{-1} \subseteq K \).
+
+Now assume \( aKa^{-1} \subseteq K \) for all \( a \in G \). To show equality, we also need \( K \subseteq aKa^{-1} \). But this follows by applying the assumption to \( a^{-1} \): \( a^{-1}K(a^{-1})^{-1} = a^{-1}Ka \subseteq K \), which implies \( K \subseteq aKa^{-1} \). Therefore \( aKa^{-1} = K \).
+
+Finally, if \( aKa^{-1} = K \) for all \( a \in G \), then clearly \( K \triangleleft G \) by definition.
+\end{proof}
+
+\section{Quotient Groups and the Natural Projection}
+
+Let \( G \) be a group and \( K \triangleleft G \). The quotient group \( G/K \) consists of the cosets of \( K \) in \( G \) with the group operation defined by \( (aK)(bK) = (ab)K \).
+
+There is a natural projection homomorphism \( \pi: G \to G/K \) defined by \( \pi(g) = gK \). This homomorphism is surjective and has kernel \( \ker(\pi) = K \).
+
+\section{Key Observations}
+
+Let's examine some important properties:
+
+If \( K \triangleleft G \), then for any \( a \in G \) and \( k \in K \), we have \( ak = ka' \) for some \( a' \in K \). This follows from the fact that \( aK = Ka \).
+
+Also, if \( k \in K \) and \( a \in G \), then \( aka^{-1} \in K \) by normality. This implies that \( \pi(aka^{-1}) = \pi(k) = K \), the identity element in \( G/K \).
+
+\section{Conclusion}
+
+The condition \( K \triangleleft G \) is fundamental in group theory as it ensures that the quotient \( G/K \) has a well-defined group structure. The equivalence between various characterizations of normality provides multiple perspectives for understanding and verifying this important property.
+
+\end{document}

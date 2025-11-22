@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Image 1 content
+Let $G$ be a group. Let $H \lhd G$. Let $K \leq G$ such that $K/H = G/H$.
+
+We have:
+\begin{align*}
+|G| &= |H| \cdot |K/H| \\
+&= |H| \cdot |G/H| \\
+&= |H| \cdot \frac{|G|}{|H|} \\
+&= |G|
+\end{align*}
+
+Now consider:
+\begin{align*}
+N_G(K) &= \{ g \in G \mid gKg^{-1} = K \} \\
+N_H(K) &= \{ h \in H \mid hKh^{-1} = K \}
+\end{align*}
+
+Since $K \leq G$ and $H \lhd G$, we have $K \cap H \lhd K$.
+
+Also, since $K/H = G/H$, we have $KH = G$.
+
+Now, if $k \in K$ and $h \in H$, then:
+\[
+khk^{-1} \in H \quad \text{(since $H \lhd G$)}
+\]
+and
+\[
+khk^{-1} \in K \quad \text{(since $K \leq G$ and $h \in H \leq G$)}
+\]
+Therefore $khk^{-1} \in K \cap H$.
+
+So $K$ normalizes $H$, and $H$ normalizes $K$.
+
+Thus $N_G(K) \geq H$ and $N_H(K) = H \cap N_G(K)$.
+
+Since $K/H = G/H$, we have $|G/K| = |H/(K \cap H)|$.
+
+Therefore:
+\[
+|N_G(K)| = |H| \cdot |N_G(K)/H|
+\]
+
+\end{document}

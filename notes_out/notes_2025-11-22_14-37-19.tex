@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+Let $G$ be a group. Let $H \triangleleft G$. Let $K \triangleleft G$ with $K \subseteq H$.
+
+Then:
+\begin{align*}
+N_G(K) &= \{ g \in G \mid gKg^{-1} = K \} \\
+N_H(K) &= \{ h \in H \mid hKh^{-1} = K \}
+\end{align*}
+
+We have $N_H(K) = N_G(K) \cap H$.
+
+Since $K \triangleleft G$, we have $N_G(K) = G$.
+
+So $N_H(K) = G \cap H = H$.
+
+Therefore $K \triangleleft H$.
+
+\end{document}

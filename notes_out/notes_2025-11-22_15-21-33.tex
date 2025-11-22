@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+Let $G$ be a group. Let $H \triangleleft G$. Let $K \leq G$ such that $K \cap H = \{e\}$.
+
+We have:
+\[
+|KH| = \frac{|K||H|}{|K \cap H|} = |K||H|
+\]
+Since $K \cap H = \{e\}$.
+
+Now, $KH \leq G$ because $H \triangleleft G$:
+\[
+(k_1 h_1)(k_2 h_2) = k_1 k_2 (k_2^{-1} h_1 k_2) h_2 \in KH
+\]
+So $KH$ is a subgroup.
+
+Also, $K \triangleleft KH$? Let $kh \in KH$, $k' \in K$:
+\[
+(kh) k' (kh)^{-1} = k h k' h^{-1} k^{-1}
+\]
+Since $H \triangleleft G$, $h k' h^{-1} \in K$? Not necessarily.
+
+Wait: Actually, $K \triangleleft KH$ if $H$ normalizes $K$. But here we only know $H \triangleleft G$.
+
+Alternatively, consider the homomorphism:
+\[
+\varphi: K \to \text{Aut}(H)
+\]
+given by $\varphi(k)(h) = k h k^{-1}$.
+
+Then we can form the semidirect product $K \rtimes H$.
+
+But here $KH$ is isomorphic to $K \rtimes H$ if $K \cap H = \{e\}$ and $H \triangleleft G$.
+
+So $KH \cong K \rtimes H$.
+
+Then $|KH| = |K||H|$.
+
+If $|G| = |K||H|$, then $G = KH$ and $G \cong K \rtimes H$.
+
+So $G$ is a semidirect product of $K$ and $H$.
+
+\end{document}

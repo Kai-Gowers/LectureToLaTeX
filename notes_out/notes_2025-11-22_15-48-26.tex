@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Group Actions and Fixed Fields}
+
+Let \( G \) be a finite group acting on a field \( K \), and let \( F \) be the fixed field of this action. That is,
+\[
+F = \{ a \in K \mid g(a) = a \text{ for all } g \in G \}.
+\]
+We are interested in understanding the relationship between subgroups of \( G \) and intermediate fields between \( F \) and \( K \).
+
+\subsection{The Galois Correspondence}
+
+Given a subgroup \( H \leq G \), we define the fixed field of \( H \) as:
+\[
+K^H = \{ a \in K \mid h(a) = a \text{ for all } h \in H \}.
+\]
+Conversely, given an intermediate field \( F \subseteq L \subseteq K \), we define the Galois group of \( L \) over \( F \) as:
+\[
+\operatorname{Gal}(K/L) = \{ g \in G \mid g(a) = a \text{ for all } a \in L \}.
+\]
+
+The following theorem establishes a fundamental correspondence:
+
+\begin{theorem}
+Let \( K/F \) be a Galois extension with Galois group \( G \). Then there is a bijection between subgroups \( H \leq G \) and intermediate fields \( F \subseteq L \subseteq K \), given by:
+\[
+H \mapsto K^H, \quad L \mapsto \operatorname{Gal}(K/L).
+\]
+Moreover, this correspondence is inclusion-reversing.
+\end{theorem}
+
+\subsection{Proof of the Correspondence}
+
+We now prove one direction of this correspondence. Suppose \( H \leq G \) is a subgroup. We want to show that the fixed field \( K^H \) is an intermediate field and that the Galois group of \( K^H \) is exactly \( H \).
+
+\begin{proof}
+Let \( a \in K^H \), so \( h(a) = a \) for all \( h \in H \). For any \( g \in G \), consider the element \( g(a) \). We want to show that \( g(a) \in K^H \), i.e., \( h(g(a)) = g(a) \) for all \( h \in H \).
+
+Since \( H \) is a subgroup, for each \( h \in H \), there exists \( h' \in H \) such that \( h g = g h' \). Then:
+\[
+h(g(a)) = (h g)(a) = (g h')(a) = g(h'(a)) = g(a),
+\]
+where the last equality follows because \( h'(a) = a \) (since \( a \in K^H \)). This shows that \( g(a) \in K^H \), so \( K^H \) is invariant under the action of \( G \).
+
+Now, let \( L = K^H \). We claim that \( \operatorname{Gal}(K/L) = H \). By definition, \( H \leq \operatorname{Gal}(K/L) \) because every element of \( H \) fixes \( L \). To show the reverse inclusion, suppose \( g \in \operatorname{Gal}(K/L) \). Then \( g \) fixes every element of \( L \), so in particular \( g \) fixes \( a \in K^H \). But this means \( g(a) = a \) for all \( a \in K^H \), which implies \( g \in H \). Therefore, \( \operatorname{Gal}(K/L) = H \).
+
+This completes the proof that the map \( H \mapsto K^H \) is injective and that the Galois group of the fixed field is exactly the subgroup we started with.
+\end{proof}
+
+\subsection{Remarks on the Correspondence}
+
+The above argument shows that for any subgroup \( H \leq G \), we have:
+\[
+\operatorname{Gal}(K / K^H) = H.
+\]
+This is a key step in establishing the Galois correspondence. The reverse direction (showing that for any intermediate field \( L \), we have \( K^{\operatorname{Gal}(K/L)} = L \)) requires additional arguments, typically using the primitive element theorem or the linear independence of characters.
+
+The inclusion-reversing property is also evident: if \( H_1 \leq H_2 \leq G \), then \( K^{H_2} \subseteq K^{H_1} \). Similarly, if \( F \subseteq L_1 \subseteq L_2 \subseteq K \), then \( \operatorname{Gal}(K/L_2) \leq \operatorname{Gal}(K/L_1) \).
+
+This correspondence is fundamental in Galois theory and allows us to translate problems about field extensions into problems about group theory, which are often easier to solve.
+
+\end{document}

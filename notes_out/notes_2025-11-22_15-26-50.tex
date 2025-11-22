@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Original OCR was unclear, attempting to reconstruct mathematical content
+Let $G$ be a group, $H \leq G$, and $K \trianglelefteq G$. Let $\phi: G \to G/K$ be the natural homomorphism.
+
+Then:
+\begin{enumerate}
+    \item $\phi(H) = HK/K$
+    \item $H \cap K \trianglelefteq H$
+    \item $H/(H \cap K) \cong HK/K$
+\end{enumerate}
+
+Proof:
+\begin{itemize}
+    \item Since $K \trianglelefteq G$, we have $kK = K$ for all $k \in K$
+    \item For $h \in H$, $\phi(h) = hK$
+    \item Thus $\phi(H) = \{hK : h \in H\} = HK/K$
+    \item $H \cap K \trianglelefteq H$ because $K \trianglelefteq G$
+    \item By the First Isomorphism Theorem, $H/(H \cap K) \cong HK/K$
+\end{itemize}
+
+\end{document}

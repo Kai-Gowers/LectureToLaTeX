@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Image 1 content
+Let $G$ be a group. Let $H \triangleleft G$. Let $K \leq G$ such that $K/H = G/H$. Let $f: G \to G/H$ be the quotient map.
+
+\begin{enumerate}
+    \item $\ker(f) = H$
+    \item $f(K) = K/H = G/H$ since $K/H = G/H$
+    \item $f^{-1}(f(K)) = K$? Actually $f^{-1}(f(K)) = KH = K$ since $H \leq K$
+    \item $K/H = G/H$ implies $K = G$? Not necessarily, but $KH = G$
+    \item Since $H \triangleleft G$ and $K \leq G$, then $KH \leq G$
+    \item $KH = G$ since $K/H = G/H$
+    \item Therefore $G = KH$
+    \item If $K \cap H = \{e\}$, then $G = K \times H$
+    \item Otherwise, $G$ is a semidirect product
+\end{enumerate}
+
+\end{document}

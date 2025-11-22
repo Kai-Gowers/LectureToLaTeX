@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Image 1 content
+Let $G$ be a group. Let $H \leq G$. Let $K \trianglelefteq G$. Then $H \cap K \trianglelefteq H$.
+
+Proof: 
+\begin{align*}
+&\text{Let } h \in H, k \in H \cap K. \text{ Then } hkh^{-1} \in K \text{ since } K \trianglelefteq G. \\
+&\text{Also } hkh^{-1} \in H \text{ since } h,k \in H. \\
+&\text{So } hkh^{-1} \in H \cap K. \\
+&\text{Therefore } H \cap K \trianglelefteq H.
+\end{align*}
+
+Now consider $HK = \{hk \mid h \in H, k \in K\}$.
+
+Since $K \trianglelefteq G$, we have:
+\begin{itemize}
+    \item $HK = KH$
+    \item $HK \leq G$
+    \item $K \trianglelefteq HK$
+    \item $H \cap K \trianglelefteq H$
+\end{itemize}
+
+Then by the Second Isomorphism Theorem:
+\[
+H/(H \cap K) \cong HK/K
+\]
+
+\end{document}

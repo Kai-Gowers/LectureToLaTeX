@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Image 1 content
+Let $G$ be a group. Let $H \lhd G$. Let $K \lhd G$ with $K \subset H$.
+
+We have: $n(K) = [G : K] = [G : H][H : K] = n(H) \cdot [H : K]$
+
+Also: $[H : K] = \frac{|H|}{|K|}$
+
+Since $K \lhd G$, so $gK = Kg$ for all $g \in G$, so $gK \subset K$ for all $g \in G$.
+
+Let $k \in K$, then $k \in H$ since $K \subset H$, so $kH = Hk$ since $H \lhd G$.
+
+Then $n(K) = n(H) \cdot [H : K]$
+
+Therefore $n(H)$ divides $n(K)$.
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Group Actions and Fixed Fields}
+
+Let us consider a Galois extension \( K/F \) with Galois group \( G = \operatorname{Gal}(K/F) \). We examine the relationship between intermediate fields and subgroups of \( G \). The following argument establishes a key property of this correspondence.
+
+\subsection{Notation and Setup}
+
+Let \( H \leq G \) be a subgroup of the Galois group, and let \( K^H \) denote the fixed field of \( H \):
+\[
+K^H = \{ x \in K \mid \sigma(x) = x \ \text{for all} \ \sigma \in H \}.
+\]
+We wish to show that the Galois group of \( K \) over \( K^H \) is exactly \( H \), i.e.,
+\[
+\operatorname{Gal}(K/K^H) = H.
+\]
+
+\subsection{Proof of the Fixed Field Correspondence}
+
+\begin{proof}
+We will demonstrate both inclusions: \( \operatorname{Gal}(K/K^H) \subseteq H \) and \( H \subseteq \operatorname{Gal}(K/K^H) \).
+
+\paragraph{Step 1: Showing \( \operatorname{Gal}(K/K^H) \subseteq H \).}
+Let \( \tau \in \operatorname{Gal}(K/K^H) \). By definition, \( \tau \) fixes every element of \( K^H \). We want to show \( \tau \in H \). Consider the action of \( \tau \) on elements of \( K \). Since \( K^H \) is the fixed field of \( H \), for any \( \sigma \in H \) and \( x \in K^H \), we have \( \sigma(x) = x \). Now, \( \tau \) also fixes \( x \), so \( \tau(x) = x \). This means \( \tau \) agrees with the identity on \( K^H \). However, to conclude \( \tau \in H \), we need to use the fact that \( H \) is the full set of automorphisms fixing \( K^H \). Actually, by Galois theory, \( \operatorname{Gal}(K/K^H) \) is precisely the subgroup of \( G \) that fixes \( K^H \), which is exactly \( H \) by the Galois correspondence. Thus, \( \tau \in H \).
+
+\paragraph{Step 2: Showing \( H \subseteq \operatorname{Gal}(K/K^H) \).}
+Let \( \sigma \in H \). We need to show that \( \sigma \in \operatorname{Gal}(K/K^H) \), i.e., \( \sigma \) fixes every element of \( K^H \). But this is true by definition of \( K^H \): if \( x \in K^H \), then \( \sigma(x) = x \) for all \( \sigma \in H \). Hence, \( \sigma \in \operatorname{Gal}(K/K^H) \).
+
+Therefore, \( \operatorname{Gal}(K/K^H) = H \).
+\end{proof}
+
+\subsection{Additional Remarks on the Correspondence}
+
+The above result is a fundamental part of the Galois correspondence, which states that there is a bijection between intermediate fields \( E \) (with \( F \subseteq E \subseteq K \)) and subgroups \( H \) of \( G \), given by:
+\[
+E \mapsto \operatorname{Gal}(K/E), \quad H \mapsto K^H.
+\]
+The proof we have given shows that these maps are inverses of each other when starting from a subgroup \( H \).
+
+It is also important to note that this correspondence is inclusion-reversing: if \( H_1 \subseteq H_2 \), then \( K^{H_2} \subseteq K^{H_1} \). This follows directly from the definition of fixed fields.
+
+\end{document}

@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Image 1 content appears to be missing or blank
+
+% Image 2 content
+Let $G$ be a group. Let $H \triangleleft G$. Let $K = G/H$. Then:
+\begin{align*}
+\phi: G &\to K \\
+g &\mapsto gH
+\end{align*}
+
+Let $R = \ker \phi$. Then $\phi: G \to K$ with $\ker \phi = R$.
+
+Let $H = \ker \phi$. Then:
+\begin{align*}
+N(H) &= \{ g \in G \mid gHg^{-1} = H \} \\
+&= \{ g \in G \mid gH = Hg \}
+\end{align*}
+
+Now:
+\begin{align*}
+g \in N(H) &\Leftrightarrow gH = Hg \\
+&\Leftrightarrow gHg^{-1} = H \\
+&\Leftrightarrow g \in N(H)
+\end{align*}
+
+Also:
+\begin{align*}
+g \in N(H) &\Leftrightarrow gH = Hg \\
+&\Leftrightarrow (gH)(g^{-1}H) = H \\
+&\Leftrightarrow gHg^{-1} = H
+\end{align*}
+
+Since $H \triangleleft G$, we have $N(H) = G$.
+
+Now consider:
+\begin{align*}
+K &= G/H \\
+k &\in K \Rightarrow k = gH \text{ for some } g \in G
+\end{align*}
+
+Then:
+\begin{align*}
+kH &= (gH)H = gH = k \\
+Hk &= H(gH) = (Hg)H = (gH)H = gH = k
+\end{align*}
+
+So $H \triangleleft K$.
+
+Now:
+\begin{align*}
+|K| &= |G/H| = [G:H] \\
+|H| &= |\ker \phi|
+\end{align*}
+
+By the first isomorphism theorem:
+\begin{align*}
+G/\ker \phi &\cong \phi(G) \\
+G/H &\cong K
+\end{align*}
+
+So $|G| = |H| \cdot |K|$.
+
+Now let $K < G$ and $H < G$ with $H \triangleleft G$. Then:
+\begin{align*}
+KH &= \{ kh \mid k \in K, h \in H \} \\
+HK &= \{ hk \mid h \in H, k \in K \}
+\end{align*}
+
+Since $H \triangleleft G$, we have $KH = HK$.
+
+Also:
+\begin{align*}
+K \cap H &\triangleleft K \\
+K/(K \cap H) &\cong KH/H
+\end{align*}
+
+By the second isomorphism theorem:
+\begin{align*}
+K/(K \cap H) &\cong KH/H
+\end{align*}
+
+Now if $K < N(H)$, then:
+\begin{align*}
+KH &= HK \\
+|KH| &= \frac{|K||H|}{|K \cap H|}
+\end{align*}
+
+And:
+\begin{align*}
+[KH:H] &= [K:K \cap H]
+\end{align*}
+
+\end{document}

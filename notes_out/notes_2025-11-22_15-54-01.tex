@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Group Actions and Fixed Fields}
+
+Let us consider a Galois extension \( K/F \) with Galois group \( G = \operatorname{Gal}(K/F) \). In this section, we explore the correspondence between subgroups of \( G \) and intermediate fields of the extension \( K/F \).
+
+\subsection{The Fixed Field Correspondence}
+
+Given a subgroup \( H \leq G \), we define the fixed field of \( H \) as:
+\[
+K^H = \{ x \in K \mid \sigma(x) = x \text{ for all } \sigma \in H \}.
+\]
+This is a subfield of \( K \) containing \( F \). Conversely, for an intermediate field \( F \subseteq L \subseteq K \), we define the Galois group of \( K \) over \( L \) as:
+\[
+\operatorname{Gal}(K/L) = \{ \sigma \in G \mid \sigma(x) = x \text{ for all } x \in L \}.
+\]
+This is a subgroup of \( G \). The fundamental theorem of Galois theory establishes a bijection between subgroups of \( G \) and intermediate fields of \( K/F \).
+
+\subsection{An Important Lemma on Subgroups and Fixed Fields}
+
+We now prove a key lemma relating the fixed fields of conjugate subgroups.
+
+\begin{lemma}
+Let \( K/F \) be a Galois extension with Galois group \( G \), and let \( H \leq G \). For any \( \sigma \in G \), we have:
+\[
+K^{\sigma H \sigma^{-1}} = \sigma(K^H).
+\]
+\end{lemma}
+
+\begin{proof}
+We will show both inclusions.
+
+\paragraph{Proof of \( K^{\sigma H \sigma^{-1}} \subseteq \sigma(K^H) \):}
+Let \( x \in K^{\sigma H \sigma^{-1}} \). Then for all \( \tau \in H \), we have:
+\[
+(\sigma \tau \sigma^{-1})(x) = x.
+\]
+Applying \( \sigma^{-1} \) to both sides yields:
+\[
+\tau(\sigma^{-1}(x)) = \sigma^{-1}(x).
+\]
+This shows that \( \sigma^{-1}(x) \in K^H \), since it is fixed by every \( \tau \in H \). Therefore, \( x = \sigma(\sigma^{-1}(x)) \in \sigma(K^H) \).
+
+\paragraph{Proof of \( \sigma(K^H) \subseteq K^{\sigma H \sigma^{-1}} \):}
+Let \( y \in K^H \), and consider \( x = \sigma(y) \). For any \( \tau \in H \), we compute:
+\[
+(\sigma \tau \sigma^{-1})(x) = (\sigma \tau \sigma^{-1})(\sigma(y)) = \sigma(\tau(y)) = \sigma(y) = x,
+\]
+since \( \tau(y) = y \) as \( y \in K^H \). Hence, \( x \in K^{\sigma H \sigma^{-1}} \), proving the inclusion.
+
+Therefore, \( K^{\sigma H \sigma^{-1}} = \sigma(K^H) \), as required.
+\end{proof}
+
+\subsection{Consequences for Normal Subgroups}
+
+An important special case occurs when \( H \) is a normal subgroup of \( G \).
+
+\begin{theorem}
+If \( H \trianglelefteq G \), then the fixed field \( K^H \) is a Galois extension of \( F \), and \( \operatorname{Gal}(K^H/F) \cong G/H \).
+\end{theorem}
+
+\begin{proof}
+Since \( H \trianglelefteq G \), we have \( \sigma H \sigma^{-1} = H \) for all \( \sigma \in G \). By the previous lemma, this implies:
+\[
+\sigma(K^H) = K^H \quad \text{for all } \sigma \in G.
+\]
+This means that \( K^H \) is invariant under the action of \( G \), which implies that \( K^H/F \) is a Galois extension. The restriction map:
+\[
+\sigma \mapsto \sigma|_{K^H}
+\]
+defines a surjective homomorphism from \( G \) to \( \operatorname{Gal}(K^H/F) \) with kernel \( H \), so by the first isomorphism theorem:
+\[
+\operatorname{Gal}(K^H/F) \cong G/H.
+\]
+\end{proof}
+
+This completes our discussion of the fundamental correspondence in Galois theory between subgroups and intermediate fields, with special attention to the behavior under conjugation and normality.
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+Let $G$ be a group. Let $H \lhd G$. Let $K \lhd G$ with $K \subseteq H$. Then $H/K \lhd G/K$.
+
+Proof: ($\Rightarrow$) Let $gK \in G/K$, $hK \in H/K$. Then
+\[
+(gK)(hK)(gK)^{-1} = (ghg^{-1})K \in H/K
+\]
+since $H \lhd G$, so $ghg^{-1} \in H$.
+
+($\Leftarrow$) Let $g \in G$, $h \in H$. Then $gK \in G/K$, $hK \in H/K$. Since $H/K \lhd G/K$,
+\[
+(gK)(hK)(gK)^{-1} = (ghg^{-1})K \in H/K
+\]
+So $ghg^{-1} \in H$, hence $H \lhd G$.
+
+Now, let $K \lhd G$. Let $\phi: G \to G/K$ be the canonical homomorphism. Then:
+\begin{enumerate}
+    \item If $H \lhd G$ with $K \subseteq H$, then $H/K \lhd G/K$
+    \item If $N \lhd G/K$, then $\phi^{-1}(N) \lhd G$ and $K \subseteq \phi^{-1}(N)$
+\end{enumerate}
+
+Let $K \lhd G$. Then:
+\[
+\{H \mid K \subseteq H \lhd G\} \leftrightarrow \{N \mid N \lhd G/K\}
+\]
+via $H \mapsto H/K$ and $N \mapsto \phi^{-1}(N)$.
+
+Let $K \lhd G$. Let $H \lhd G$ with $K \subseteq H$. Then:
+\[
+(G/K)/(H/K) \cong G/H
+\]
+
+Proof: Define $\psi: G/K \to G/H$ by $\psi(gK) = gH$. This is well-defined since $K \subseteq H$.
+
+$\psi$ is a homomorphism:
+\[
+\psi((gK)(hK)) = \psi(ghK) = ghH = (gH)(hH) = \psi(gK)\psi(hK)
+\]
+
+$\ker(\psi) = \{gK \mid gH = H\} = \{gK \mid g \in H\} = H/K$
+
+By the First Isomorphism Theorem:
+\[
+(G/K)/(H/K) \cong G/H
+\]
+
+\end{document}

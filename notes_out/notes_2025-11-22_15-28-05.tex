@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Original OCR content appears to contain group theory concepts
+% Possibly discussing normal subgroups and quotient groups
+
+Let $G$ be a group. Let $H \lhd G$ (i.e., $H$ is a normal subgroup of $G$).
+
+Let $\phi: G \to G/H$ be the quotient map.
+
+For $g \in G$, we have $\phi(g) = gH$.
+
+Now, let $K \leq G$ be a subgroup.
+
+Then $\phi(K) = \{kH : k \in K\} = KH/H$.
+
+Also, $\ker(\phi|_K) = K \cap H$.
+
+So by the first isomorphism theorem:
+\[
+K/(K \cap H) \cong KH/H
+\]
+
+Now, if $K \leq H$, then $K \cap H = K$ and $KH = H$, so:
+\[
+K/K \cong H/H \Rightarrow \{1\} \cong \{1\}
+\]
+
+If $H \leq K$, then $K \cap H = H$ and $KH = K$, so:
+\[
+K/H \cong K/H
+\]
+
+This is consistent.
+
+Now, consider the case where $K \lhd G$ as well.
+
+Then $KH$ is a subgroup of $G$.
+
+Since $H \lhd G$ and $K \lhd G$, we have $KH = HK$ and $KH \lhd G$.
+
+Then:
+\[
+G/KH \cong (G/H)/(KH/H)
+\]
+
+This is the third isomorphism theorem.
+
+Also, $K \cap H \lhd G$ and:
+\[
+G/(K \cap H) \cong (G/K) \times (G/H)
+\]
+if $G = KH$ and $K \cap H = \{1\}$ (direct product).
+
+% Some unclear notation in original OCR
+% Possibly discussing specific calculations with group elements
+
+Let $a, b \in G$. Then:
+\[
+ab = ba? \quad \text{Not necessarily, unless $G$ is abelian}
+\]
+
+If $k \in K$, then $\phi(k) = kH$.
+
+Since $K \lhd G$, we have $gkg^{-1} \in K$ for all $g \in G$.
+
+In particular, for $h \in H$, we have $hkh^{-1} \in K$.
+
+But since $H \lhd G$, we also have $khk^{-1} \in H$.
+
+So $K$ and $H$ normalize each other.
+
+Then $[K,H] \leq K \cap H$.
+
+If $K \cap H = \{1\}$, then $[K,H] = \{1\}$, so $K$ and $H$ commute elementwise.
+
+Then $KH \cong K \times H$.
+
+This is a common situation in group theory.
+
+\end{document}

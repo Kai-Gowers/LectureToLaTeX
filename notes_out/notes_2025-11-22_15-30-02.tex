@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+Let $G$ be a group and $H \triangleleft G$. Let $K \leq G$ such that $H \subseteq K$. Then:
+
+\begin{enumerate}
+    \item $K/H \triangleleft G/H$ if and only if $K \triangleleft G$
+    \item $(G/H)/(K/H) \cong G/K$
+\end{enumerate}
+
+Proof of (1):
+
+($\Rightarrow$) Assume $K/H \triangleleft G/H$. Then for all $gH \in G/H$, we have:
+\[
+(gH)(K/H)(gH)^{-1} = K/H
+\]
+This implies $gKg^{-1} \subseteq K$, so $K \triangleleft G$.
+
+($\Leftarrow$) Assume $K \triangleleft G$. Then for all $g \in G$, we have $gKg^{-1} = K$. Therefore:
+\[
+(gH)(K/H)(gH)^{-1} = (gKg^{-1})/H = K/H
+\]
+So $K/H \triangleleft G/H$.
+
+Proof of (2):
+
+Define $\phi: G/H \to G/K$ by $\phi(gH) = gK$. This is well-defined since if $gH = g'H$, then $g^{-1}g' \in H \subseteq K$, so $gK = g'K$.
+
+$\phi$ is a homomorphism:
+\[
+\phi(gH \cdot g'H) = \phi(gg'H) = gg'K = (gK)(g'K) = \phi(gH)\phi(g'H)
+\]
+
+$\phi$ is surjective: For any $gK \in G/K$, we have $\phi(gH) = gK$.
+
+The kernel of $\phi$ is:
+\[
+\ker\phi = \{gH \in G/H : \phi(gH) = K\} = \{gH : gK = K\} = \{gH : g \in K\} = K/H
+\]
+
+By the First Isomorphism Theorem:
+\[
+(G/H)/\ker\phi \cong \operatorname{im}\phi
+\]
+So:
+\[
+(G/H)/(K/H) \cong G/K
+\]
+
+\end{document}
