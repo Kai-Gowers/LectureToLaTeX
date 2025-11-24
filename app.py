@@ -2,12 +2,12 @@ import os
 import subprocess
 import tempfile
 import uuid
+import base64
 from datetime import datetime
 from flask import Flask, request, render_template, jsonify, send_file
 from werkzeug.utils import secure_filename
 from openai import OpenAI
 from denoise_pipeline import run_denoise
-import pytesseract
 from PIL import Image
 from math_chatbot import math_engine, format_reply
 
@@ -17,9 +17,9 @@ app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
 
 # =============== CONFIG ===============
 DOCS_DIR = "notes_out"
-MODEL_NAME = "deepseek-chat"
-API_KEY = os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
-BASE_URL = "https://api.deepseek.com"
+MODEL_NAME = "gpt-4o"  # OpenAI GPT-4o with vision capabilities
+API_KEY = os.environ.get("OPENAI_API_KEY") or os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
+BASE_URL = None  # None uses default OpenAI endpoint
 # ======================================
 
 os.makedirs(DOCS_DIR, exist_ok=True)
@@ -29,10 +29,29 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def encode_image_to_base64(image_path):
+    """Encode an image file to base64 string for vision API"""
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
+
+def get_image_mime_type(image_path):
+    """Determine MIME type based on file extension"""
+    ext = image_path.lower().split('.')[-1]
+    mime_types = {
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'bmp': 'image/bmp',
+        'webp': 'image/webp'
+    }
+    return mime_types.get(ext, 'image/jpeg')
+
 def process_images_to_latex(image_paths):
     """
-    Process multiple images through the full pipeline: denoise -> OCR -> LLM -> LaTeX
-    Combines all OCR text from multiple images into a single LaTeX document.
+    Process multiple images through the full pipeline: denoise -> GPT-4o Vision -> LaTeX
+    Sends images directly to GPT-4o vision API instead of using OCR.
+    Combines all images into a single LaTeX document.
     Returns the LaTeX source code and paths to generated files.
     """
     # Create a temporary processed directory for this session
@@ -41,31 +60,19 @@ def process_images_to_latex(image_paths):
     os.makedirs(processed_dir, exist_ok=True)
     
     try:
-        all_ocr_texts = []
+        enhanced_images = []
         
-        # Process each image
+        # Process each image through denoise pipeline
         for idx, image_path in enumerate(image_paths):
             print(f"[INFO] Processing image {idx + 1}/{len(image_paths)}...")
             
             # Step 1: Run denoise pipeline
             paths = run_denoise(in_path=image_path, processed_dir=processed_dir)
             enh_path = paths["enhanced"]
-            print(f"[INFO] Using enhanced image for OCR: {enh_path}")
+            print(f"[INFO] Enhanced image saved: {enh_path}")
+            enhanced_images.append(enh_path)
 
-            # Step 2: OCR the processed image
-            ocr_text = pytesseract.image_to_string(Image.open(enh_path))
-            all_ocr_texts.append({
-                'image_num': idx + 1,
-                'text': ocr_text
-            })
-            print(f"[INFO] OCR text extracted from image {idx + 1}.")
-
-        # Combine all OCR texts
-        combined_ocr = "\n\n--- Image 1 ---\n\n" + all_ocr_texts[0]['text']
-        for i in range(1, len(all_ocr_texts)):
-            combined_ocr += f"\n\n--- Image {i + 1} ---\n\n" + all_ocr_texts[i]['text']
-        
-        print(f"[INFO] Combined OCR from {len(image_paths)} images.")
+        print(f"[INFO] Enhanced {len(enhanced_images)} images. Preparing for GPT-4o vision API...")
 
         # Generate meaningful filename with date/time
         now = datetime.now()
@@ -75,20 +82,24 @@ def process_images_to_latex(image_paths):
         else:
             note_name = f"notes_{date_str}"
 
-        # Step 3: Call LLM with combined text
-        client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+        # Step 2: Prepare images and call GPT-4o vision API
+        if BASE_URL:
+            client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+        else:
+            client = OpenAI(api_key=API_KEY)  # Use default OpenAI endpoint
 
         system_prompt = (
-            "You are a LaTeX math transcription AND explanation assistant. "
-            "You will be given rough OCR output from a handwritten mathematics blackboard. "
-            "Your task is to clean it, reconstruct the mathematics faithfully, and "
+            "You are a LaTeX math transcription AND explanation assistant using GPT-4o vision capabilities. "
+            "You will be given images of handwritten mathematics from a blackboard. "
+            "Your task is to carefully analyze the images, understand the mathematical content, and "
             "produce a polished, structured LaTeX article with detailed explanations.\n\n"
 
             "=== CORE TASKS ===\n"
-            "1. Correct the OCR output and rewrite all mathematical content in proper LaTeX.\n"
+            "1. Carefully examine the images and transcribe all mathematical content into proper LaTeX.\n"
             "2. Add clear explanatory text (in full sentences) before or after each major step, "
             "suitable for an advanced undergraduate or beginning graduate student.\n"
-            "3. Preserve all important equations, derivations, and logical structure.\n\n"
+            "3. Preserve all important equations, derivations, and logical structure.\n"
+            "4. Interpret handwritten symbols, equations, and mathematical notation accurately using your vision capabilities.\n\n"
 
             "=== STRICT LATEX RULES ===\n"
             "• Every mathematical symbol or expression MUST be in math mode.\n"
@@ -116,31 +127,69 @@ def process_images_to_latex(image_paths):
             "graduate-level algebraic number theory literature. "
             "Ensure consistent math-mode usage, operator spacing, and paragraph structure.\n\n"
 
-            "If something from the OCR is ambiguous or unreadable, include a LaTeX comment '% unclear'.\n"
+            "If something in an image is ambiguous or unreadable, include a LaTeX comment '% unclear'.\n"
             "Output ONLY LaTeX, with no markdown and no external commentary."
         )
         
-        user_prompt = (
-            f"Here are the raw OCR outputs from {len(image_paths)} math blackboard image(s). "
-            "The OCR may have mistakes, missing backslashes, or broken fractions. "
-            "Please:\n"
-            "• Rewrite it as clean LaTeX, using article class with packages: amsmath and amssymb.\n"
-            "• Insert detailed explanations and commentary in LaTeX so that a reader can follow the reasoning.\n"
-            "\n"
-            "You should keep the original mathematical content and derivations, but you are encouraged to:\n"
-            "• Organize the material with sections/subsections,\n"
-            "• Add short explanatory paragraphs around each important formula or step, and\n"
-            "• Clarify the meaning of symbols and assumptions when they are implicit.\n"
-            "• Include \\usepackage{{amsmath}} and \\usepackage{{amssymb}} in the preamble.\n"
-            f"{'• Combine all images into a single coherent document.' if len(image_paths) > 1 else ''}\n\n"
-            f"OCR START:\n{combined_ocr}\nOCR END."
-        )
+        # Build the user message content with text and images (OpenAI vision format)
+        user_content = []
+        
+        # Add text instruction
+        if len(enhanced_images) == 1:
+            instruction_text = (
+                "Please analyze this image of handwritten mathematics from a blackboard using your vision capabilities. "
+                "Transcribe all mathematical content into clean LaTeX, using article class with packages: amsmath and amssymb. "
+                "Insert detailed explanations and commentary in LaTeX so that a reader can follow the reasoning.\n\n"
+                "You should keep the original mathematical content and derivations, but you are encouraged to:\n"
+                "• Organize the material with sections/subsections,\n"
+                "• Add short explanatory paragraphs around each important formula or step, and\n"
+                "• Clarify the meaning of symbols and assumptions when they are implicit.\n"
+                "• Include \\usepackage{amsmath} and \\usepackage{amssymb} in the preamble."
+            )
+        else:
+            instruction_text = (
+                f"Please analyze these {len(enhanced_images)} images of handwritten mathematics from a blackboard using your vision capabilities. "
+                "They may be part of a sequence of related content. "
+                "Transcribe all mathematical content from all images into a single coherent LaTeX document, "
+                "using article class with packages: amsmath and amssymb. "
+                "Insert detailed explanations and commentary in LaTeX so that a reader can follow the reasoning.\n\n"
+                "You should keep the original mathematical content and derivations, but you are encouraged to:\n"
+                "• Combine all images into a single coherent document,\n"
+                "• Organize the material with sections/subsections,\n"
+                "• Add short explanatory paragraphs around each important formula or step, and\n"
+                "• Clarify the meaning of symbols and assumptions when they are implicit.\n"
+                "• Include \\usepackage{amsmath} and \\usepackage{amssymb} in the preamble."
+            )
+        
+        user_content.append({"type": "text", "text": instruction_text})
+        
+        # Add each enhanced image
+        for idx, enh_path in enumerate(enhanced_images):
+            print(f"[INFO] Encoding image {idx + 1}/{len(enhanced_images)} for vision API...")
+            base64_image = encode_image_to_base64(enh_path)
+            mime_type = get_image_mime_type(enh_path)
+            
+            user_content.append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:{mime_type};base64,{base64_image}"
+                }
+            })
+            
+            if len(enhanced_images) > 1 and idx < len(enhanced_images) - 1:
+                # Add separator text between images
+                user_content.append({
+                    "type": "text",
+                    "text": f"\n--- End of Image {idx + 1} / {len(enhanced_images)} ---\n"
+                })
 
+        print(f"[INFO] Sending {len(enhanced_images)} image(s) to GPT-4o vision API...")
+        
         response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
+                {"role": "user", "content": user_content},
             ],
             stream=False,
         )
@@ -320,7 +369,7 @@ def process_images_to_latex(image_paths):
 
 def process_image_to_latex(image_path):
     """
-    Process a single image through the full pipeline: denoise -> OCR -> LLM -> LaTeX
+    Process a single image through the full pipeline: denoise -> GPT-4o Vision -> LaTeX
     Returns the LaTeX source code and paths to generated files.
     """
     return process_images_to_latex([image_path])

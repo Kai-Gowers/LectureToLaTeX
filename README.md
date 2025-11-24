@@ -8,9 +8,9 @@ The easiest way to use LectureToLaTeX is through the web interface:
 
 1. **Set up your environment:**
 
-   - Create a DeepSeek API key and save it as an environment variable:
+   - Create an OpenAI API key and save it as an environment variable:
      ```bash
-     export DEEPSEEK_API_KEY="sk-your-key-here"
+     export OPENAI_API_KEY="sk-your-key-here"
      ```
 
 2. **Install dependencies:**

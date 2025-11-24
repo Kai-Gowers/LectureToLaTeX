@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Group Theory and Normal Subgroups}
+
+In this document, we explore the relationship between groups and their quotient groups with a focus on normal subgroups. Let \( G \) be a group and \( H \) a normal subgroup of \( G \). The quotient group \( G/H \) is defined, and we delve into certain properties and equivalences involving subgroup \( K \).
+
+\section*{Equivalence of Subgroup Conditions}
+
+We wish to establish the equivalence of the two conditions 
+\[
+\pi(K) = K / (K \cap H)
+\]
+and 
+\[
+K / H \trianglelefteq G / H.
+\]
+
+\subsection*{Forward Implication (\(\Rightarrow\))}
+
+Assume \(\pi(K) = K / (K \cap H)\).
+
+\begin{itemize}
+    \item Consider the projection \(\pi: G \to G/H\).
+    \item Let us explore the properties of this map \(\pi\).
+    \item Here, \(\pi(g)\pi(k)\pi(g^{-1}) = \pi(gkg^{-1}) = \pi(k')\).
+\end{itemize}
+
+This implies:
+\[
+gkg^{-1} = k'h, \quad h \in H
+\]
+hence
+\[
+K \trianglelefteq G.
+\]
+
+This follows because \( gKg^{-1} \subseteq K \Rightarrow gKg^{-1} \in K \). Thus \( K \trianglelefteq G \).
+
+\subsection*{Reverse Implication (\(\Leftarrow\))}
+
+Conversely, assume \( K \trianglelefteq G \).
+
+\begin{itemize}
+    \item This means \( gKg^{-1} = gKg^{-1}h \) for \( h \in H \).
+    \item Thus, \(\pi(g)\pi(k)\pi(g^{-1}) = \pi(gkg^{-1}) = \pi(k')\).
+\end{itemize}
+
+We conclude:
+\[
+K \trianglelefteq K \cap \ker \pi
+\]
+and therefore
+\[
+K \subseteq K \cap H \quad \text{so then} \quad \pi(K) = K/H \quad \text{which implies} \quad K/H \trianglelefteq G/H.
+\]
+
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Matrix Differential Equation Solution}
+
+Consider the matrix function \(\Phi(t)\) given by:
+
+\[
+\Phi = \begin{bmatrix}
+e^{-2t} & e^{-5t} \\
+e^{-t} & 2e^{-5t}
+\end{bmatrix}
+\]
+
+The determinant of \(\Phi\) is computed as:
+
+\[
+\det(\Phi) = 2e^{-6t}
+\]
+
+\section*{Inverse of the Matrix}
+
+The inverse of the matrix \(\Phi\), denoted \(\Phi^{-1}\), can be calculated using the formula for the inverse of a 2x2 matrix:
+
+\[
+\Phi^{-1} = \frac{1}{3} \begin{bmatrix}
+2e^{2t} & -e^{-5t} \\
+-e^{-t} & e^{2t}
+\end{bmatrix}
+\]
+
+\section*{Matrix \textit{U} and Particular Solution}
+
+With \(\Phi^{-1}\), we compute the matrix \(\textit{U}\) as the integral of \(\Phi^{-1}\):
+
+\[
+\textit{U} = \int \begin{bmatrix}
+\frac{1}{3} e^{2t}
+\end{bmatrix}
+= \begin{bmatrix}
+\frac{100}{6} e^{2t} \\
+\frac{100}{15} e^{50t}
+\end{bmatrix}
+\]
+
+The particular solution \(\chi_p\) is then given by:
+
+\[
+\chi_p = \Phi \cdot \textit{U} = \begin{bmatrix}
+e^{-2t} & e^{-5t} \\
+e^{-t} & 2e^{-5t}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{50}{3} e^{\frac{5}{2}t} \\
+2e^{6t}
+\end{bmatrix}
+\]
+
+\section*{Evaluating Matrix Products}
+
+Calculations lead to:
+
+\[
+\begin{bmatrix}
+\frac{50}{3} = \frac{20}{3} \\
+50
+\end{bmatrix}
++ 
+\begin{bmatrix}
+\frac{40}{3}
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\frac{30}{3} \\
+90
+\end{bmatrix}
+\]
+
+Consequently, the particular solution is:
+
+\[
+\chi_p = \begin{bmatrix} 10 \\ 30 \end{bmatrix}
+\]
+
+This concludes the calculations for solving the given differential equation using matrix methods.
+
+\end{document}

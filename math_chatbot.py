@@ -1,5 +1,5 @@
 # Math Chatbot - Adapted from Streamlit to Flask
-# Uses DeepSeek API instead of OpenAI
+# Uses OpenAI API (GPT-4o)
 
 import os
 import re
@@ -13,17 +13,20 @@ try:
 except Exception:
     sp = None
 
-# DeepSeek API client (using OpenAI SDK format)
+# OpenAI API client
 from openai import OpenAI
 
 # Configuration
-MODEL_NAME = "deepseek-chat"
-API_KEY = os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
-BASE_URL = "https://api.deepseek.com"
+MODEL_NAME = "gpt-4o"  # OpenAI GPT-4o model
+API_KEY = os.environ.get("OPENAI_API_KEY") or os.environ.get("DEEPSEEK_API_KEY") or "sk-your-key-here"
+BASE_URL = None  # None uses default OpenAI endpoint
 
 # Initialize client
 try:
-    client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+    if BASE_URL:
+        client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+    else:
+        client = OpenAI(api_key=API_KEY)  # Use default OpenAI endpoint
     LLM_AVAILABLE = bool(API_KEY and API_KEY != "sk-your-key-here")
 except Exception:
     LLM_AVAILABLE = False
