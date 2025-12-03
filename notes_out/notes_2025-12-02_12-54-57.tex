@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Vector Spaces and Quotients}
+
+In linear algebra, a subspace \( U \) of a vector space \( V \) can be used to construct a new vector space called the quotient space, denoted \( V/U \).
+
+\subsection{Construction of the Quotient Space}
+
+\begin{itemize}
+    \item \( U \subseteq V \): Here, \( U \) is a subspace of \( V \).
+\end{itemize}
+
+The equivalence relation on \( V \) is defined by:
+\[
+v \sim v' \quad \text{if} \quad v - v' \in U
+\]
+where \( v, v' \in V \).
+
+The set of equivalence classes under this relation is:
+\[
+V/U = \{ [v] \mid v \in V \}
+\]
+This construction forms a new vector space called the \textit{quotient space}.
+
+\subsection{Bases and Dimension}
+
+\begin{itemize}
+    \item Let \( \{ u_1, u_2, \ldots, u_k \} \) be a basis of \( U \).
+    \item Extend this basis to a basis of \( V \), denoted \( \{ u_1, \ldots, u_k, v_1, \ldots, v_{\ell} \} \).
+\end{itemize}
+
+Then,
+\[
+\{ [v_i] \mid 1 \leq i \leq \ell \}
+\]
+is a basis for the quotient space \( V/U \).
+
+The dimension of the quotient space is given by the formula:
+\[
+\dim V/U = \ell = \dim V - \dim U
+\]
+
+This shows that the dimension of the quotient space \( V/U \) is the difference between the dimension of \( V \) and the dimension of \( U \).
+
+\end{document}
