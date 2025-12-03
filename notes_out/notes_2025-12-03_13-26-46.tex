@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\title{Cross Product Identity}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+
+In this document, we aim to demonstrate a vector identity involving a specific operation \( \mathcal{S} \) applied to vectors. The claim to be shown is:
+
+\[
+\mathcal{S}(\mathbf{\hat{v}}) \times \mathcal{S}(\mathbf{\hat{w}}) = \mathbf{\hat{v}} \times \mathbf{\hat{w}}
+\]
+
+where \( \mathbf{\hat{v}} \) and \( \mathbf{\hat{w}} \) are unit vectors.
+
+\section{Vector Transformation}
+
+We begin by expressing the operation \( \mathcal{S} \) applied to vectors \( \mathbf{\hat{v}} \) and \( \mathbf{\hat{w}} \):
+
+\[
+\mathcal{S}(\mathbf{\hat{v}}) = \mathbf{\hat{v}} + (\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}
+\]
+
+\[
+\mathcal{S}(\mathbf{\hat{w}}) = \mathbf{\hat{w}} + (\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}
+\]
+
+Here, \( \mathbf{\lambda} \) and \( \mathbf{s} \) are auxiliary vectors, possibly indicating specific directions or scales relevant to the transformation.
+
+\section{Cross Product Computation}
+
+The cross product of the transformed vectors is computed as follows:
+
+\begin{align*}
+\mathcal{S}(\mathbf{\hat{v}}) \times \mathcal{S}(\mathbf{\hat{w}}) &= \left( \mathbf{\hat{v}} + (\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s} \right) \times \left( \mathbf{\hat{w}} + (\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s} \right) \\
+&= \mathbf{\hat{v}} \times \mathbf{\hat{w}} + \mathbf{\hat{v}} \times \left((\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right) \\
+&\quad + \left((\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right) \times \mathbf{\hat{w}} + \left((\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right) \times \left((\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right)
+\end{align*}
+
+\section{Simplification}
+
+Observing that the last term evaluates to zero due to the properties of the cross product (\(\mathbf{s} \times \mathbf{s} = \mathbf{0}\)), we focus on simplifying:
+
+\begin{align*}
+\mathbf{\hat{v}} \times \left((\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right) &= (\mathbf{\hat{w}} \cdot \mathbf{\lambda}) (\mathbf{\hat{v}} \times \mathbf{s}) \\
+\left((\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right) \times \mathbf{\hat{w}} &= -(\mathbf{\hat{v}} \cdot \mathbf{\lambda}) (\mathbf{\hat{w}} \times \mathbf{s})
+\end{align*}
+
+Both terms involving \(\mathbf{s}\) cancel each other out under the sum, reaffirming that:
+
+\[
+\mathcal{S}(\mathbf{\hat{v}}) \times \mathcal{S}(\mathbf{\hat{w}}) = \mathbf{\hat{v}} \times \mathbf{\hat{w}}
+\]
+
+\section{Conclusion}
+
+The manipulation of the expressions confirms the original identity. This property highlights a unique invariance under the transformation \( \mathcal{S} \).
+
+\end{document}

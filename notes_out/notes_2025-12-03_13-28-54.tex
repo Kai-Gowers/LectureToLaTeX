@@ -1,0 +1,46 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Quotients in Vector Spaces}
+
+Let \( U \subseteq V \) be a subspace.
+
+\subsection{Equivalence Relation}
+
+We define an equivalence relation \(\sim\) on \( V \) by declaring \( v \sim v' \) if \( v - v' \in U \).
+
+\subsection{The Quotient Space \( V/U \)}
+
+The set of equivalence classes is denoted by
+
+\[
+V/U = \{ [v] \mid v \in V \}
+\]
+
+This creates a new vector space, the quotient space, where each element is a coset \( [v] \).
+
+\subsection{Basis and Dimension}
+
+Suppose \(\{ u_i \}\) is a basis of \( U \), and \(\{ u_1, \ldots, u_k, v_1, \ldots, v_\ell \}\) is a basis of \( V \).
+
+Then, the set
+
+\[
+\{ [v_i] \mid 1 \leq i \leq \ell \}
+\]
+
+forms a basis of the quotient space \( V/U \).
+
+Therefore, the dimension of the quotient space is given by
+
+\[
+\dim V/U = \ell = \dim V - \dim U
+\]
+
+This result shows that the dimension of the quotient space is equal to the dimension of the original space minus the dimension of the subspace.
+
+\end{document}

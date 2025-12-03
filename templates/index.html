@@ -569,6 +569,178 @@
             background: #dc2626;
         }
 
+        .btn-feedback {
+            background: var(--accent);
+        }
+
+        .btn-feedback:hover {
+            background: #7c3aed;
+        }
+
+        /* Feedback Modal */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .feedback-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feedback-modal-content {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            box-shadow: var(--shadow-xl);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .feedback-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-modal-header h3 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .feedback-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .feedback-close:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .feedback-modal-body {
+            padding: 1.5rem;
+        }
+
+        .feedback-rating-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-rating-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+
+        .rating-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rating-input input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-tertiary);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .rating-input input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .rating-input input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+
+        .rating-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.125rem;
+        }
+
+        .feedback-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+
+        .feedback-field textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            resize: vertical;
+            transition: all 0.2s ease;
+        }
+
+        .feedback-field textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .feedback-modal-footer {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
         .empty-history {
             text-align: center;
             padding: 4rem 2rem;
@@ -878,9 +1050,58 @@
                 <div class="download-buttons">
                     <button class="btn btn-download" id="downloadTex">Download .tex</button>
                     <button class="btn btn-download" id="downloadPdf" style="display: none;">Download .pdf</button>
+                    <button class="btn btn-feedback" id="feedbackBtn" style="background: var(--accent);">Give Feedback</button>
                 </div>
             </div>
             <div class="pdf-preview" id="pdfPreview"></div>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div class="feedback-modal" id="feedbackModal">
+            <div class="feedback-modal-content">
+                <div class="feedback-modal-header">
+                    <h3>Feedback on Generated Notes</h3>
+                    <button class="feedback-close" id="feedbackClose">&times;</button>
+                </div>
+                <div class="feedback-modal-body">
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.875rem;">
+                        Help us improve! Please rate the quality of the generated notes and provide any corrections or comments.
+                    </p>
+                    
+                    <div class="feedback-rating-group">
+                        <label for="ratingTranscription">Transcription Quality (1-5):</label>
+                        <div class="rating-input">
+                            <input type="range" id="ratingTranscription" min="1" max="5" value="3" step="1">
+                            <span class="rating-value" id="ratingTranscriptionValue">3</span>
+                        </div>
+                    </div>
+
+                    <div class="feedback-rating-group">
+                        <label for="ratingExplanation">Explanation Quality (1-5):</label>
+                        <div class="rating-input">
+                            <input type="range" id="ratingExplanation" min="1" max="5" value="3" step="1">
+                            <span class="rating-value" id="ratingExplanationValue">3</span>
+                        </div>
+                    </div>
+
+                    <div class="feedback-field">
+                        <label for="correctedLatex">Corrected LaTeX (optional):</label>
+                        <textarea id="correctedLatex" rows="6" placeholder="Paste corrected LaTeX code here if you made any changes..."></textarea>
+                    </div>
+
+                    <div class="feedback-field">
+                        <label for="feedbackComments">Comments (optional):</label>
+                        <textarea id="feedbackComments" rows="4" placeholder="Any additional feedback or suggestions..."></textarea>
+                    </div>
+                </div>
+                <div class="feedback-modal-footer">
+                    <button class="btn" id="feedbackSubmit" style="background: var(--primary);">Submit Feedback</button>
+                    <button class="btn" id="feedbackCancel" style="background: var(--text-tertiary);">Cancel</button>
+                </div>
+                <div id="feedbackSuccess" style="display: none; padding: 1rem; background: #d1fae5; border-radius: 6px; color: #065f46; margin-top: 1rem; text-align: center;">
+                    ✓ Thank you for your feedback!
+                </div>
+            </div>
         </div>
         </div>
 
@@ -1377,6 +1598,100 @@
             if (currentNoteName && hasPdf) {
                 window.location.href = `/download/${currentNoteName}?type=pdf`;
             }
+        });
+
+        // Feedback functionality
+        const feedbackModal = document.getElementById('feedbackModal');
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        const feedbackClose = document.getElementById('feedbackClose');
+        const feedbackCancel = document.getElementById('feedbackCancel');
+        const feedbackSubmit = document.getElementById('feedbackSubmit');
+        const ratingTranscription = document.getElementById('ratingTranscription');
+        const ratingExplanation = document.getElementById('ratingExplanation');
+        const ratingTranscriptionValue = document.getElementById('ratingTranscriptionValue');
+        const ratingExplanationValue = document.getElementById('ratingExplanationValue');
+        const correctedLatex = document.getElementById('correctedLatex');
+        const feedbackComments = document.getElementById('feedbackComments');
+        const feedbackSuccess = document.getElementById('feedbackSuccess');
+
+        // Update rating display values
+        ratingTranscription.addEventListener('input', (e) => {
+            ratingTranscriptionValue.textContent = e.target.value;
+        });
+
+        ratingExplanation.addEventListener('input', (e) => {
+            ratingExplanationValue.textContent = e.target.value;
+        });
+
+        // Open feedback modal
+        feedbackBtn.addEventListener('click', () => {
+            if (!currentNoteName) {
+                alert('No note available for feedback. Please generate a note first.');
+                return;
+            }
+            feedbackModal.classList.add('active');
+            feedbackSuccess.style.display = 'none';
+            // Reset form
+            ratingTranscription.value = 3;
+            ratingExplanation.value = 3;
+            ratingTranscriptionValue.textContent = '3';
+            ratingExplanationValue.textContent = '3';
+            correctedLatex.value = '';
+            feedbackComments.value = '';
+        });
+
+        // Close feedback modal
+        function closeFeedbackModal() {
+            feedbackModal.classList.remove('active');
+        }
+
+        feedbackClose.addEventListener('click', closeFeedbackModal);
+        feedbackCancel.addEventListener('click', closeFeedbackModal);
+
+        // Close modal when clicking outside
+        feedbackModal.addEventListener('click', (e) => {
+            if (e.target === feedbackModal) {
+                closeFeedbackModal();
+            }
+        });
+
+        // Submit feedback
+        feedbackSubmit.addEventListener('click', () => {
+            if (!currentNoteName) {
+                alert('No note available for feedback.');
+                return;
+            }
+
+            const feedbackData = {
+                note_name: currentNoteName,
+                rating_transcription: parseInt(ratingTranscription.value),
+                rating_explanation: parseInt(ratingExplanation.value),
+                corrected_latex: correctedLatex.value.trim(),
+                comments: feedbackComments.value.trim()
+            };
+
+            fetch('/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(`Error submitting feedback: ${data.error}`);
+                } else if (data.success) {
+                    feedbackSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        closeFeedbackModal();
+                    }, 2000);
+                }
+            })
+            .catch(err => {
+                alert('Failed to submit feedback. Please try again.');
+                console.error('Feedback error:', err);
+            });
         });
     </script>
 </body>
