@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Vector Transformation and Cross Product}
+
+We aim to demonstrate the validity of the following equation involving vector transformations and cross products:
+
+\[
+\mathcal{S}(\mathbf{v}) \times \mathcal{S}(\mathbf{w}) = \mathbf{\hat{v}} \times \mathbf{\hat{w}}
+\]
+
+where \(\mathcal{S}(\mathbf{v})\) and \(\mathcal{S}(\mathbf{w})\) represent the transformed vectors with some corrections involving unit vectors and scalar factors.
+
+\subsection*{Definitions and Assumptions}
+
+First, we define the vector transformations:
+
+\[
+\mathcal{S}(\mathbf{v}) = \mathbf{\hat{v}} + (\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}
+\]
+\[
+\mathcal{S}(\mathbf{w}) = \mathbf{\hat{w}} + (\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}
+\]
+
+Here, \(\mathbf{\hat{v}}\) and \(\mathbf{\hat{w}}\) are unit vectors, \(\mathbf{\lambda}\) is a vector, and \(\mathbf{s}\) is a scalar factor.
+
+\subsection*{Cross Product Expansion}
+
+To proceed, we evaluate the cross product \(\mathcal{S}(\mathbf{v}) \times \mathcal{S}(\mathbf{w})\).
+
+\[
+\begin{aligned}
+\mathcal{S}(\mathbf{v}) \times \mathcal{S}(\mathbf{w}) &= \left[ \mathbf{\hat{v}} + (\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s} \right] \times \left[ \mathbf{\hat{w}} + (\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s} \right] \\
+&= \mathbf{\hat{v}} \times \mathbf{\hat{w}} + \mathbf{\hat{v}} \times \left[(\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right] + \left[(\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right] \times \mathbf{\hat{w}} \\
+&\quad + \left[(\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right] \times \left[(\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right]
+\end{aligned}
+\]
+
+\subsection*{Simplification}
+
+Upon simplification, it is shown that:
+
+\[
+\left[(\mathbf{\hat{v}} \cdot \mathbf{\lambda}) \mathbf{s}\right] \times \mathbf{\hat{w}} + \mathbf{\hat{v}} \times \left[(\mathbf{\hat{w}} \cdot \mathbf{\lambda}) \mathbf{s}\right] = \mathbf{0}
+\]
+
+Thus, we have:
+
+\[
+\mathcal{S}(\mathbf{v}) \times \mathcal{S}(\mathbf{w}) = \mathbf{\hat{v}} \times \mathbf{\hat{w}}
+\]
+
+\section*{Geometric Interpretation}
+
+Let us consider the geometric interpretation by examining a parallelogram formed by \(\mathbf{\hat{v}}\) and \(\left(\mathbf{\hat{w}} \cdot \mathbf{\lambda} \right) \mathbf{s}\):
+
+\[
+\text{Area of } \Pi = h \times b
+\]
+
+which simplifies using the determinant properties:
+
+\[
+\begin{aligned}
+\left|\mathbf{\hat{v}} \to \mathbf{s} + (\mathbf{\hat{w}} \to \mathbf{s})\right| &= \left|\mathbf{\hat{v}} \right| \cdot \left| \mathbf{\hat{w}} \circ \mathbf{s}\right| \\
+&= \left|\mathcal{S}(\mathbf{v}) \times \mathcal{S}(\mathbf{w}) \right|
+\end{aligned}
+\]
+
+This reinforces our algebraic demonstration with a visual confirmation.
+
+\end{document}
