@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Proof of a Group Theoretic Property}
+
+We are given a group \( G \) and a normal subgroup \( H \) of \( G \). We are exploring a condition involving subgroups \( K \) of \( G \) and the quotient group \( G/H \). The goal is to prove the equivalence:
+\[
+\pi(K) = K/H \quad \text{if and only if} \quad K \trianglelefteq G.
+\]
+
+Here, \(\pi: G \to G/H\) is the canonical projection.
+
+\subsection*{Forward Direction}
+
+\((\Rightarrow)\) Assume that \(\pi(K) = K/H\). We want to show that \( K \trianglelefteq G \).
+
+Start by letting \( \pi: G \to G/H \) be the natural projection. Suppose that \( \pi(K) = K/H \), which means that every coset \( gH \) such that \( g \in K \) satisfies the equality condition under projection. 
+
+\[
+\pi(g)\pi(K)\pi(g^{-1}) = \pi(K).
+\]
+
+This implies:
+
+\[
+gKg^{-1} \subseteq K.
+\]
+
+Hence, \( gk'g^{-1} = k'h \) for some \( h \in H \), and therefore \( K \) is normal in \( G \).
+
+\subsection*{Backward Direction}
+
+\((\Leftarrow)\) Assume that \( K \trianglelefteq G \). We need to prove that \(\pi(K) = K/H\).
+
+Since \( K \trianglelefteq G \), for any \( g \in G \), \( gKg^{-1} = K \).
+
+Therefore, if \( k \in K \), \( gkg^{-1} \in K \). It follows that
+
+\[
+\pi(gk)\pi(g^{-1}) = \pi(K).
+\]
+
+As a subgroup, \( \pi(K) \) must be \( K/H \) precisely because \( K \) is closed and normal in \( G \).
+
+Thus, we have:
+
+\[
+K/H \trianglelefteq G/H,
+\]
+
+proving the backward direction.
+
+\end{document}

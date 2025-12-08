@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section{Group Homomorphisms and Quotients}
+
+In this discussion, we explore the relationship between subgroup homomorphisms and quotient groups.
+
+\subsection{Statement and Setup}
+
+Let \(\pi : G \to G/H\) be the canonical projection from a group \(G\) to the quotient group \(G/H\). We examine the condition for a subgroup \(K \leq G\) such that \(\pi(K) = K/H\). We assume \(K/H \trianglelefteq G/H\), that is, \(K/H\) is a normal subgroup of \(G/H\).
+
+\subsection{Implication: \((\Rightarrow)\)}
+
+Assume \(\pi(K) = K/H\). We need to show \(K \trianglelefteq G\).
+
+\[
+\pi(g)\pi(K)\pi(g^{-1}) = \pi(K)
+\]
+
+This implies:
+
+\[
+gKg^{-1} = K
+\]
+
+Hence, for \(k' \in K\), there exists \(h \in H\) such that:
+
+\[
+gkg^{-1} = k'h \quad \text{for some} \quad k' \in K, \, h \in H
+\]
+
+Since \(H \leq \ker \pi\), we have:
+
+\[
+h \in \ker \pi \quad \Rightarrow \quad H \leq K
+\]
+
+Thus, \(K \trianglelefteq G\).
+
+\subsection{Converse: \((\Leftarrow)\)}
+
+Assume \(K \trianglelefteq G\), i.e., \(gKg^{-1} = K\) for all \(g \in G\).
+
+\[
+\implies \pi(g)\pi(K)\pi(g^{-1}) = \pi(gKg^{-1}) = \pi(K)
+\]
+
+This implies:
+
+\[
+\pi(K) \leq \pi(\ker \pi) \quad \Rightarrow \quad K \leq \ker \pi
+\]
+
+Thus, \(\pi(K) = K/H \implies K/H \trianglelefteq G/H\).
+
+\section{Conclusion}
+
+We have shown that \(K \trianglelefteq G\) if and only if \(\pi(K) = K/H \trianglelefteq G/H\). This demonstrates a fundamental correspondence between subgroups of a group and its quotient.
+
+\end{document}

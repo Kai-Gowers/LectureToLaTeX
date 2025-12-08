@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Quotient Group and Normal Subgroup}
+
+The problem involves proving a statement about group homomorphisms and normal subgroups. Let \(\pi: G \to G/H\) be the natural projection where \(H\) is a normal subgroup of \(G\). We want to examine the implications of \(K/H \trianglelefteq G/H\) and how it affects the subgroup \(K\) of \(G\).
+
+\subsection*{Forward Implication \((\Rightarrow)\)}
+
+Assume \(\pi(K) \trianglelefteq G/H\). Let us demonstrate that this implies \(K \trianglelefteq G\).
+
+Given: 
+\[
+K/H \trianglelefteq G/H
+\]
+It follows that for any coset \(gH \in G/H\), with \(\pi(g) \in G/H\), we have:
+\[
+\pi(g) \pi(K) \pi(g^{-1}) = \pi(K')
+\]
+
+\paragraph{Explanation:} 
+
+Since \(\pi\) is a homomorphism:
+\[
+\pi(gkg^{-1}) = \pi(k')
+\]
+This implies:
+\[
+gkg^{-1} \in K
+\]
+Thus, \(GKH \subseteq K\), and so \(K \trianglelefteq G\).
+
+\subsection*{Reverse Implication \((\Leftarrow)\)}
+
+Now consider the reverse, assuming \(K \trianglelefteq G\), we need to show that \(K/H \trianglelefteq G/H\).
+
+Assume \(K \trianglelefteq G\), therefore:
+\[
+gKg^{-1} = K \quad \text{for all} \quad g \in G
+\]
+
+This implies:
+\[
+\pi(g)\pi(K)\pi(g^{-1}) = \pi(K)
+\]
+
+\paragraph{Explanation:}
+
+Since \(K\) is normal in \(G\), any conjugate \(gkg^{-1}\) remains in \(K\). This property transfers through the homomorphism \(\pi\) implying:
+\[
+K/H \trianglelefteq G/H
+\]
+Thus, proving \(\pi(K) = K/H \trianglelefteq G/H\).
+
+\end{document}
