@@ -50,11 +50,11 @@ The easiest way to use LectureToLaTeX is through the web interface:
 
 ## Project Structure
 
-- **`app.py`** - Flask web application (main server and API endpoints)
-- **`denoise_pipeline.py`** - Image denoising and enhancement functions
-- **`math_chatbot.py`** - Math chatbot with LaTeX rendering support
-- **`templates/index.html`** - Web app frontend (HTML, CSS, JavaScript with KaTeX for math rendering)
-- **`requirements.txt`** - Python dependencies
+- **`app.py`** - Flask web application (main server and API endpoints) - **Contribution: Kai**
+- **`denoise_pipeline.py`** - Image denoising and enhancement functions - **Contribution: Alexandra and Kai**
+- **`math_chatbot.py`** - Math chatbot with LaTeX rendering support - **Contribution: Alexandra**
+- **`templates/index.html`** - Web app frontend (HTML, CSS, JavaScript with KaTeX for math rendering) - **Contribution: Kai**
+- **`requirements.txt`** - Python dependencies -
 - **`notes_out/`** - Generated LaTeX (.tex) and PDF files
 - **`notes_feedback/`** - Feedback files (JSONL format) for chatbot interactions
 - **`static/`** - Static assets (images, logos, etc.)
