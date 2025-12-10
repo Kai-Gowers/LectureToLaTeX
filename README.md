@@ -62,7 +62,7 @@ The easiest way to use LectureToLaTeX is through the web interface:
 ## Contributions
 
 - **`app.py`** - Kai
-- - **`denoise_pipeline.py`** - Alexandra
+- **`denoise_pipeline.py`** - Alexandra
 - **`math_chatbot.py`** - Alexandra
 - **`templates/index.html`** - Kai
 
